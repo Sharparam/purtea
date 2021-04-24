@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'purtea'
+require 'time'
+require 'yaml'
+require 'pry'
+
+config = YAML.load_file('config.yml')
+
+FFLOGS_CLIENT_ID = config['fflogs']['client_id']
+FFLOGS_CLIENT_SECRET = config['fflogs']['client_secret']
+FFLOGS_TOKEN = config['fflogs']['access_token']
+
+binding.pry
+
+exit
+
+REPORT_CODE = config['fflogs']['report_code']
+
+SPREADSHEET_ID = config['sheet']['id']
+SPREADSHEET_IMPORT_RANGE = config['sheet']['range']
+
+fflogs_api = Purtea::FFLogs::API.new(FFLOGS_TOKEN)
+fights = fflogs_api.fights(REPORT_CODE)
+
+spreadsheet_data = fights.map do |fight|
+  [
+    fight.id,
+    fight.encounter_id,
+    fight.zone_id,
+    fight.zone_name,
+    fight.name,
+    fight.difficulty,
+    sprintf('%.2f%%', fight.boss_percentage),
+    sprintf('%.2f%%', fight.fight_percentage),
+    fight.start_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
+    fight.end_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
+    fight.duration.strftime('%H:%M:%S'),
+    '', # End phase
+    fight.kill? ? 'Y' : 'N'
+  ]
+end
+
+sheet = Purtea::SheetApi.new(SPREADSHEET_ID)
+sheet.append(SPREADSHEET_IMPORT_RANGE, spreadsheet_data)
