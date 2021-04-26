@@ -5,16 +5,13 @@ require 'dotenv/tasks'
 
 config = Purtea::Config.load
 
-TOKEN = config['fflogs']['access_token']
-
 desc 'Purtea tasks'
 
 namespace :fflogs do
   task :gen_schema do
-    GraphQL::Client.dump_schema(
-      Purtea::FFLogs::HTTP,
-      'fflogs_schema.json',
-      context: { access_token: TOKEN }
-    )
+    client_id = config['fflogs']['client_id']
+    client_secret = config['fflogs']['client_secret']
+    api = Purtea::FFLogs::API.new client_id, client_secret
+    api.dump_schema
   end
 end

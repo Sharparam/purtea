@@ -19,6 +19,14 @@ module Purtea
         authorize!
       end
 
+      def dump_schema
+        GraphQL::Client.dump_schema(
+          Purtea::FFLogs::HTTP,
+          SCHEMA_FILE,
+          context: { access_token: @token.token }
+        )
+      end
+
       def fights(code)
         result = CLIENT.query(
           GET_FIGHTS_QUERY,
