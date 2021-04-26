@@ -41,7 +41,7 @@ module Purtea
       private
 
       def parse_fight_timestamp(report_start_ms, time)
-        Time.at(0, report_start_ms, time, :millisecond)
+        Time.at(0, report_start_ms + time, :millisecond)
       end
 
       def parse_duration(start_at, end_at)

@@ -67,6 +67,9 @@ config.toml
 !*.example.yml
 !*.example.toml
 
+# Ignore FF Logs credentials
+fflogs_token.json
+
 # Ignore GCP credentials
 google_credentials.json
 google_token.yaml

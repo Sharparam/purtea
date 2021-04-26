@@ -7,9 +7,10 @@ require 'purtea/fflogs/fight'
 
 module Purtea
   module FFLogs
-    BASE_URL = 'https://www.fflogs.com/api/v2/client'
+    BASE_URL = 'https://www.fflogs.com'
+    API_URL = "#{BASE_URL}/api/v2/client"
 
-    HTTP = GraphQL::Client::HTTP.new(BASE_URL) do
+    HTTP = GraphQL::Client::HTTP.new(API_URL) do
       def headers(context)
         unless (token = context[:access_token])
           raise 'Missing FF Logs access token'

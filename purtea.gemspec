@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'dotenv', '~> 2.7'
   s.add_runtime_dependency 'google-api-client', '~> 0.53.0'
   s.add_runtime_dependency 'graphql-client', '~> 0.16.0'
+  s.add_runtime_dependency 'oauth2', '~> 1.4'
   s.add_runtime_dependency 'tomlrb', '~> 2.0'
 
   s.add_development_dependency 'pry', '~> 0.14.1'
