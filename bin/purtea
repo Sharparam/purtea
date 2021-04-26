@@ -10,7 +10,7 @@ FFLOGS_CLIENT_ID = config['fflogs']['client_id']
 FFLOGS_CLIENT_SECRET = config['fflogs']['client_secret']
 FFLOGS_TOKEN = config['fflogs']['access_token']
 
-REPORT_CODE = config['fflogs']['report_code']
+REPORT_CODE = ARGV[1] || config['fflogs']['report_code']
 
 SPREADSHEET_ID = config['sheet']['id']
 SPREADSHEET_IMPORT_RANGE = config['sheet']['range']
