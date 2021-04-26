@@ -1,7 +1,7 @@
 require 'purtea'
-require 'yaml'
+require 'dotenv/tasks'
 
-config = YAML.load_file('config.yml')
+config = Purtea::Config.load
 
 desc "Print reminder about eating more fruit."
 

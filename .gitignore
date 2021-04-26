@@ -61,8 +61,11 @@ Gemfile.lock
 
 # End of https://www.toptal.com/developers/gitignore/api/ruby
 
-# Ignore config file
-/config.yml
+# Ignore config files
+config.yml
+config.toml
+!*.example.yml
+!*.example.toml
 
 # Ignore GCP credentials
 google_credentials.json

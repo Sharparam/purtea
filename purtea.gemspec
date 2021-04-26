@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files = `git ls-files bin lib *.md LICENSE`.split("\n")
 
+  s.add_runtime_dependency 'dotenv', '~> 2.7'
+  s.add_runtime_dependency 'tomlrb', '~> 2.0'
   s.add_runtime_dependency 'graphql-client', '~> 0.16.0'
   s.add_runtime_dependency 'google-api-client', '~> 0.53.0'
 
