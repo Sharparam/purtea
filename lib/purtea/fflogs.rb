@@ -35,9 +35,11 @@ module Purtea
             fights {
               id
               encounterID
-              zoneID
+              gameZone {
+                id
+                name
+              }
               name
-              zoneName
               difficulty
               bossPercentage
               fightPercentage

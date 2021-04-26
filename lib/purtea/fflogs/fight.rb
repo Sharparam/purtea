@@ -20,9 +20,9 @@ module Purtea
       def initialize(data, report_start_ms)
         @id = data.id
         @encounter_id = data.encounter_id
-        @zone_id = data.zone_id
+        @zone_id = data.game_zone.id
         @name = data.name
-        @zone_name = data.zone_name
+        @zone_name = data.game_zone.name
         @difficulty = data.difficulty
         @boss_percentage = data.boss_percentage
         @fight_percentage = data.fight_percentage

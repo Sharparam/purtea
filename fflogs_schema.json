@@ -5528,6 +5528,20 @@
               "deprecationReason": null
             },
             {
+              "name": "boundingBox",
+              "description": "The bounding box that encloses the positions of all players/enemies in the fight.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ReportMapBoundingBox",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "completeRaid",
               "description": "Whether or not a fight represents an entire raid from start to finish, e.g., in Classic WoW a complete run of Blackwing Lair.",
               "args": [
@@ -5555,6 +5569,24 @@
                 "kind": "SCALAR",
                 "name": "Int",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dungeonPulls",
+              "description": "For a dungeon, a list of pulls that occurred in the dungeon. Pulls have details such as the enemies involved in the pull and map info showing where the pull took place.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ReportDungeonPull",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5682,6 +5714,20 @@
               "deprecationReason": null
             },
             {
+              "name": "gameZone",
+              "description": "The game zone the fight takes place in. This should not be confused with the zones used by the sites for rankings. This is the actual in-game zone info.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GameZone",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "id",
               "description": "The report ID of the fight. This ID can be used to fetch only events, tables or graphs for this fight.",
               "args": [
@@ -5709,6 +5755,24 @@
                 "kind": "SCALAR",
                 "name": "Boolean",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maps",
+              "description": "All the maps that were involved in a fight. For single bosses this will usually be a single map, but for dungeons it will typically be multiple maps.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ReportMap",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5778,8 +5842,323 @@
               "deprecationReason": null
             },
             {
-              "name": "zoneID",
-              "description": "The ID of the game zone the fight takes place in. This should not be confused with the zones used by the sites for rankings. This is the actual in-game zone info.",
+              "name": "wipeCalledTime",
+              "description": "If a wipe was explicitly called using the Companion app, then this field will contain the time. This is a timestamp with millisecond precision that is relative to the start of the report, i.e., the start of the report is considered time 0.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ReportMapBoundingBox",
+          "description": "The ReportMapBoundingBox is a box that encloses the positions of all players and enemies in a fight or dungeon pull.",
+          "fields": [
+            {
+              "name": "minX",
+              "description": "The smallest X position.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxX",
+              "description": "The largest X position.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minY",
+              "description": "The smallest Y position.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxY",
+              "description": "The largest Y position.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ReportDungeonPull",
+          "description": "The ReportDungeonPull represents a single pull that occurs in a containing dungeon.",
+          "fields": [
+            {
+              "name": "boundingBox",
+              "description": "The bounding box that encloses the positions of all players/enemies in the fight.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ReportMapBoundingBox",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "encounterID",
+              "description": "The encounter ID of the fight. If the ID is 0, the fight is considered a trash fight.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "endTime",
+              "description": "The end time of the fight. This is a timestamp with millisecond precision that is relative to the start of the report, i.e., the start of the report is considered time 0.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "enemyNPCs",
+              "description": "Information about enemies involved in the fight. Includes report IDs, instance counts, and instance group counts for each NPC.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ReportDungeonPullNPC",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "The report ID of the fight. This ID can be used to fetch only events, tables or graphs for this fight.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "kill",
+              "description": "Whether or not the fight was a boss kill, i.e., successful. If this field is false, it means the fight was an incomplete run, etc..",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maps",
+              "description": "All the maps that were involved in a pull.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ReportMap",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The name of the fight.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "startTime",
+              "description": "The start time of the fight. This is a timestamp with millisecond precision that is relative to the start of the report, i.e., the start of the report is considered time 0.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "x",
+              "description": "The x position of the first mob damaged in the pull at the time this damage happens. Used to establish a marker position to represent where the pull took place.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "y",
+              "description": "The y position of the first mob damaged in the pull at the time this damage happens. Used to establish a marker position to represent where the pull took place.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ReportDungeonPullNPC",
+          "description": "The ReportDungeonPullNPC represents participation info within a single dungeon pull for an NPC.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The report ID of the actor. This ID is used in events to identify sources and targets.",
               "args": [
 
               ],
@@ -5792,15 +6171,102 @@
               "deprecationReason": null
             },
             {
-              "name": "zoneName",
-              "description": "The name of the game zone the fight takes place in. This should not be confused with the zones used by the sites for rankings. This is the actual in-game zone info.",
+              "name": "gameID",
+              "description": "The game ID of the actor, e.g., so it can be looked up on external Web sites.",
               "args": [
 
               ],
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "Int",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minimumInstanceID",
+              "description": "The lowest instance ID seen during the pull.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maximumInstanceID",
+              "description": "The highest instance ID seen during the pull.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minimumInstanceGroupID",
+              "description": "The lowest instance group ID seen during the pull.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maximumInstanceGroupID",
+              "description": "The highest instance group ID seen during the pull.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ReportMap",
+          "description": "The ReportMap represents a single map that a fight can occur on.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The map's game ID.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5818,6 +6284,20 @@
           "name": "ReportFightNPC",
           "description": "The ReportFightNPC represents participation info within a single fight for an NPC.",
           "fields": [
+            {
+              "name": "gameID",
+              "description": "The game ID of the actor. This ID is used in events to identify sources and targets.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "id",
               "description": "The report ID of the actor. This ID is used in events to identify sources and targets.",
@@ -5855,6 +6335,51 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GameZone",
+          "description": "A single zone for the game.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The ID of the zone.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The localized name of the zone. Will be null if no localization information exists for the zone.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -8174,51 +8699,6 @@
             {
               "name": "name",
               "description": "The localized name of the NPC. Will be null if no localization information exists for the NPC.",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-
-          ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "GameZone",
-          "description": "A single zone for the game.",
-          "fields": [
-            {
-              "name": "id",
-              "description": "The ID of the zone.",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "The localized name of the zone. Will be null if no localization information exists for the zone.",
               "args": [
 
               ],
