@@ -26,8 +26,16 @@ spreadsheet_data = fights.map do |fight|
     fight.zone_name,
     fight.name,
     fight.difficulty,
-    fight.boss_percentage.nil? ? 'N/A' : sprintf('%.2f%%', fight.boss_percentage),
-    fight.fight_percentage.nil? ? 'N/A' : sprintf('%.2f%%', fight.fight_percentage),
+    if fight.boss_percentage.nil?
+      'N/A'
+    else
+      format('%.2f%%', fight.boss_percentage)
+    end,
+    if fight.fight_percentage.nil?
+      'N/A'
+    else
+      format('%.2f%%', fight.fight_percentage)
+    end,
     fight.start_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
     fight.end_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
     fight.duration.strftime('%H:%M:%S'),

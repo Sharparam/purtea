@@ -1,17 +1,16 @@
+# frozen_string_literal: true
+
 require 'purtea'
 require 'dotenv/tasks'
 
 config = Purtea::Config.load
 
-desc "Print reminder about eating more fruit."
+TOKEN = config['fflogs']['access_token']
 
-task :apple do
-  puts "Eat more apples!"
-end
+desc 'Purtea tasks'
 
 namespace :fflogs do
   task :gen_schema do
-    TOKEN = config['fflogs']['access_token']
     GraphQL::Client.dump_schema(
       Purtea::FFLogs::HTTP,
       'fflogs_schema.json',

@@ -7,6 +7,7 @@ require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 module Purtea
+  # Interacts with the Google Sheets API.
   class SheetApi
     OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
     APP_NAME = 'Purtea'
@@ -14,8 +15,7 @@ module Purtea
     TOKEN_PATH = 'google_token.yaml'
     SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS
 
-    attr_reader :spreadsheet_id
-    attr_reader :service
+    attr_reader :spreadsheet_id, :service
 
     def initialize(spreadsheet_id)
       @service = Google::Apis::SheetsV4::SheetsService.new
@@ -40,19 +40,24 @@ module Purtea
     def authorize!
       client_id = Google::Auth::ClientId.from_file CREDENTIALS_PATH
       token_store = Google::Auth::Stores::FileTokenStore.new file: TOKEN_PATH
-      authorizer = Google::Auth::UserAuthorizer.new client_id, SCOPE, token_store
+      authorizer = Google::Auth::UserAuthorizer.new client_id, SCOPE,
+                                                    token_store
       user_id = 'default'
       credentials = authorizer.get_credentials user_id
       if credentials.nil?
         url = authorizer.get_authorization_url base_url: OOB_URI
-        puts 'Open the following URL in the browser and enter the ' \
-          "resulting code after authorization:\n#{url}"
-        code = gets
+        code = prompt_code url
         credentials = authorizer.get_and_store_credentials_from_code(
           user_id: user_id, code: code, base_url: OOB_URI
         )
       end
       @credentials = credentials
+    end
+
+    def prompt_code(url)
+      puts 'Open the following URL in the browser and enter the ' \
+        "resulting code after authorization:\n#{url}"
+      gets
     end
   end
 end

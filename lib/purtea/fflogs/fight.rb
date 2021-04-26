@@ -2,21 +2,15 @@
 
 module Purtea
   module FFLogs
+    # Describes a fight entry in FF Logs.
     class Fight
       ISO_FORMAT = '%Y-%m-%dT%H:%S:%M%:z'
 
-      attr_reader :id
-      attr_reader :encounter_id
-      attr_reader :zone_id
-      attr_reader :name
-      attr_reader :zone_name
-      attr_reader :difficulty
-      attr_reader :boss_percentage
-      attr_reader :fight_percentage
-      attr_reader :start_at
-      attr_reader :end_at
-      attr_reader :duration
+      attr_reader :id, :encounter_id, :zone_id, :name, :zone_name, :difficulty,
+                  :boss_percentage, :fight_percentage, :start_at, :end_at,
+                  :duration
 
+      # rubocop:disable Metrics/AbcSize
       def initialize(data, report_start_ms)
         @id = data.id
         @encounter_id = data.encounter_id
@@ -26,11 +20,12 @@ module Purtea
         @difficulty = data.difficulty
         @boss_percentage = data.boss_percentage
         @fight_percentage = data.fight_percentage
-        @start_at = Time.at(0, report_start_ms + data.start_time, :millisecond)
-        @end_at = Time.at(0, report_start_ms + data.end_time, :millisecond)
+        @start_at = parse_fight_timestamp report_start_ms, data.start_time
+        @end_at = parse_fight_timestamp report_start_ms, data.end_time
         @kill = data.kill
-        @duration = Time.at(@end_at - @start_at).utc
+        @duration = parse_duration @start_at, @end_at
       end
+      # rubocop:enable Metrics/AbcSize
 
       def kill? = @kill
 
@@ -39,7 +34,18 @@ module Purtea
         end_f = end_at.strftime(ISO_FORMAT)
         duration = Time.at(end_at - start_at).utc.strftime('%H:%M:%S')
         kw = kill? ? 'CLEAR' : 'WIPE'
-        "[#{@id}] #{start_f} -> #{end_f} [#{duration}] #{boss_percentage}% (#{fight_percentage}%) - #{kw}"
+        "[#{@id}] #{start_f} -> #{end_f} [#{duration}] " \
+          "#{boss_percentage}% (#{fight_percentage}%) - #{kw}"
+      end
+
+      private
+
+      def parse_fight_timestamp(report_start_ms, time)
+        Time.at(0, report_start_ms, time, :millisecond)
+      end
+
+      def parse_duration(start_at, end_at)
+        Time.at(end_at - start_at).utc
       end
     end
   end

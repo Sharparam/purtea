@@ -4,6 +4,7 @@ require 'dotenv/load'
 require 'tomlrb'
 
 module Purtea
+  # Contains methods to load the Purtea config.
   module Config
     DEFAULT_CONFIG_PATH = 'config.toml'
     DEFAULT_ENV_PREFIX = 'PURTEA_'
@@ -11,17 +12,18 @@ module Purtea
 
     class << self
       def load(path = DEFAULT_CONFIG_PATH, env_prefix: DEFAULT_ENV_PREFIX)
-        if File.exist? path
-          config = Tomlrb.load_file path
-        else
-          config = {}
-        end
+        config = if File.exist? path
+                   Tomlrb.load_file path
+                 else
+                   {}
+                 end
 
         ENV.select { |k, _| k.start_with? env_prefix }.each do |key, value|
-          key_path = key.delete_prefix(env_prefix).split(ENV_NESTED_SEPARATOR).map(&:downcase)
-          unless key_path.empty?
-            set_hash_by_path config, key_path, value
-          end
+          key_path = key
+                     .delete_prefix(env_prefix)
+                     .split(ENV_NESTED_SEPARATOR)
+                     .map(&:downcase)
+          set_hash_by_path config, key_path, value unless key_path.empty?
         end
 
         config

@@ -11,8 +11,8 @@ module Purtea
 
     HTTP = GraphQL::Client::HTTP.new(BASE_URL) do
       def headers(context)
-        unless token = context[:access_token]
-          fail 'Missing FF Logs access token'
+        unless (token = context[:access_token])
+          raise 'Missing FF Logs access token'
         end
 
         {

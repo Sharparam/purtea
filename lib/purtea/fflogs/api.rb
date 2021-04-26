@@ -4,6 +4,7 @@ require 'time'
 
 module Purtea
   module FFLogs
+    # Contains methods to interact with the FF Logs API.
     class API
       def initialize(token)
         @token = token
