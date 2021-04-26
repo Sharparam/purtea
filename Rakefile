@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bundler/gem_tasks'
 require 'purtea'
 require 'dotenv/tasks'
 
@@ -15,3 +16,9 @@ namespace :fflogs do
     api.dump_schema
   end
 end
+
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
+
+task default: %i[rubocop]
