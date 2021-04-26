@@ -1,0 +1,8 @@
+[fflogs]
+client_id = 'CLIENT_ID_HERE'
+client_secret = 'CLIENT_SECRET_HERE'
+report_code = 'DEFAULT_REPORT_CODE_HERE'
+
+[sheet]
+id = 'GOOGLE_SHEET_ID_HERE'
+range = 'MySheet!A1:M1'
