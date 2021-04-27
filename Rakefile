@@ -3,6 +3,9 @@
 require 'bundler/gem_tasks'
 require 'purtea'
 require 'dotenv/tasks'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
+require 'yard'
 
 config = Purtea::Config.load
 
@@ -26,12 +29,8 @@ task :shellcheck do
   end
 end
 
-require 'rspec/core/rake_task'
-
 RSpec::Core::RakeTask.new(:spec)
-
-require 'rubocop/rake_task'
-
 RuboCop::RakeTask.new
+YARD::Rake::YardocTask.new
 
 task default: %i[spec rubocop]
