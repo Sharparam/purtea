@@ -19,12 +19,24 @@ module Purtea
         authorize!
       end
 
-      def dump_schema
-        GraphQL::Client.dump_schema(
+      def dump_schema(is_retry: false)
+        result = GraphQL::Client.dump_schema(
           Purtea::FFLogs::HTTP,
           SCHEMA_FILE,
           context: { access_token: @token.token }
         )
+
+        err_code = result&.dig('errors', 0, 'message')&.[](0..2)
+        if err_code && err_code == '401'
+          return result if is_retry
+
+          Purtea.logger.info 'FF Logs API token expired or revoked, getting new'
+
+          authorize! true
+          return dump_schema true
+        end
+
+        result
       end
 
       def fights(code)
@@ -38,9 +50,13 @@ module Purtea
         report.fights.map { |d| Fight.new d, report.start_time }
       end
 
-      def authorize!
-        load_token!
-        return unless token_expired?
+      def authorize!(force_refresh: false)
+        Purtea.logger.debug 'Authorize FF Logs API'
+
+        unless force_refresh
+          load_token!
+          return unless token_expired?
+        end
 
         refresh_token!
         save_token
