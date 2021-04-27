@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'google-api-client', '~> 0.53.0'
   s.add_runtime_dependency 'graphql-client', '~> 0.16.0'
   s.add_runtime_dependency 'oauth2', '~> 1.4'
+  s.add_runtime_dependency 'thor', '~> 1.1'
   s.add_runtime_dependency 'tomlrb', '~> 2.0'
 
   s.add_development_dependency 'byebug', '~> 11.1'

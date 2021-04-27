@@ -9,3 +9,5 @@ require 'purtea/logging'
 
 require 'purtea/fflogs'
 require 'purtea/sheet'
+
+require 'purtea/cli'

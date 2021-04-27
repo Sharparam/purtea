@@ -2,48 +2,5 @@
 # frozen_string_literal: true
 
 require 'purtea'
-require 'time'
 
-config = Purtea::Config.load
-
-FFLOGS_CLIENT_ID = config['fflogs']['client_id']
-FFLOGS_CLIENT_SECRET = config['fflogs']['client_secret']
-
-REPORT_CODE = ARGV[1]
-
-abort "Usage: #{ARGV[0] || 'purtea'} <report_code>" if REPORT_CODE.nil?
-
-SPREADSHEET_ID = config['sheet']['id']
-SPREADSHEET_IMPORT_RANGE = config['sheet']['range']
-
-fflogs_api = Purtea::FFLogs::API.new(FFLOGS_CLIENT_ID, FFLOGS_CLIENT_SECRET)
-fights = fflogs_api.fights(REPORT_CODE)
-
-spreadsheet_data = fights.map do |fight|
-  [
-    fight.id,
-    fight.encounter_id,
-    fight.zone_id,
-    fight.zone_name,
-    fight.name,
-    fight.difficulty,
-    if fight.boss_percentage.nil?
-      'N/A'
-    else
-      format('%.2f%%', fight.boss_percentage)
-    end,
-    if fight.fight_percentage.nil?
-      'N/A'
-    else
-      format('%.2f%%', fight.fight_percentage)
-    end,
-    fight.start_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
-    fight.end_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
-    fight.duration.strftime('%H:%M:%S'),
-    '', # End phase
-    fight.kill? ? 'Y' : 'N'
-  ]
-end
-
-sheet = Purtea::SheetApi.new(SPREADSHEET_ID)
-sheet.append(SPREADSHEET_IMPORT_RANGE, spreadsheet_data)
+Purtea::CLI.start
