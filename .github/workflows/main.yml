@@ -1,4 +1,4 @@
-name: Ruby
+name: main
 
 on: [ push, pull_request ]
 
