@@ -7,7 +7,6 @@ module Purtea # rubocop:disable Style/Documentation
     def logger
       @logger ||= Logger.new($stdout).tap do |log|
         log.progname = name
-        log.level = Logger::DEBUG
       end
     end
   end
