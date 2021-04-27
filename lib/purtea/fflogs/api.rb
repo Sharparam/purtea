@@ -49,6 +49,7 @@ module Purtea
       def save_token
         return if @token.nil?
 
+        Purtea.logger.debug 'Saving FF Logs API token to file'
         token_hash = @token.to_hash
         token_json = token_hash.to_json
         File.open(TOKEN_FILE, 'w') { |f| f.write token_json }
@@ -57,12 +58,14 @@ module Purtea
       def load_token!
         return unless File.exist? TOKEN_FILE
 
+        Purtea.logger.debug 'Loading FF Logs API token from file'
         token_hash = JSON.load_file TOKEN_FILE
         @token = OAuth2::AccessToken.from_hash(@oa_client, token_hash)
       end
 
       def refresh_token!
         # FF Logs does not issue refresh tokens
+        Purtea.logger.debug 'Refreshing FF Logs API token'
         @token = @oa_client.client_credentials.get_token
       end
 
