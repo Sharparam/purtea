@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   # s.description = 'TODO: Add description'
   s.homepage = 'https://github.com/Sharparam/purtea'
   s.license = 'MPL-2.0'
-  s.required_ruby_version = Gem::Requirement.new('>= 3.0.0')
+  s.required_ruby_version = Gem::Requirement.new('>= 2.6')
 
   s.metadata['homepage_uri'] = s.homepage
   s.metadata['source_code_uri'] = 'https://github.com/Sharparam/purtea'
