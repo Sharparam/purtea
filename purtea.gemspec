@@ -25,7 +25,9 @@ Gem::Specification.new do |s|
   s.metadata['bug_tracker_uri'] = 'https://github.com/Sharparam/purtea/issues'
 
   s.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
+    `git ls-files -z`.split("\x0").reject do |f|
+      f.match(%r{\A(?:test|spec|features)/})
+    end
   end
 
   s.bindir = 'exe'
