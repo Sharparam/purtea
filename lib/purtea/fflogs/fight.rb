@@ -27,7 +27,9 @@ module Purtea
       end
       # rubocop:enable Metrics/AbcSize
 
-      def kill? = @kill
+      def kill?
+        @kill
+      end
 
       def to_s
         start_f = start_at.strftime(ISO_FORMAT)
