@@ -16,6 +16,16 @@ namespace :fflogs do
   end
 end
 
+scripts = [
+  'bin/setup'
+]
+desc 'Runs shellcheck on scripts'
+task :shellcheck do
+  sh "shellcheck #{scripts.join ' '}" do |ok, res|
+    exit res.exitstatus unless ok
+  end
+end
+
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
