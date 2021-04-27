@@ -6,9 +6,8 @@ require 'dotenv/tasks'
 
 config = Purtea::Config.load
 
-desc 'Purtea tasks'
-
 namespace :fflogs do
+  desc "Generates the schema for FF Logs' API into a default JSON file"
   task :gen_schema do
     client_id = config['fflogs']['client_id']
     client_secret = config['fflogs']['client_secret']
