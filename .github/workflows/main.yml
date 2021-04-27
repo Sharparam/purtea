@@ -15,7 +15,7 @@ jobs:
           - 2.7
           - '3.0'
           - head
-          - jruby
+          #- jruby
           - jruby-head
           - truffleruby
           - truffleruby-head
