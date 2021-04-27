@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'tomlrb', '~> 2.0'
 
   s.add_development_dependency 'byebug', '~> 11.1'
-  s.add_development_dependency 'pry', '~> 0.14.1'
+  s.add_development_dependency 'pry', '~> 0.13.0'
   s.add_development_dependency 'pry-byebug', '~> 3.9'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rspec', '~> 3.10'
