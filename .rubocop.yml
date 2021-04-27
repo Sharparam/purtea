@@ -9,6 +9,9 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 
+require:
+  - rubocop-rspec
+
 Gemspec/DateAssignment: # (new in 1.10)
   Enabled: true
 
