@@ -3,4 +3,4 @@
 
 require 'purtea'
 
-Purtea::CLI.start
+exit Purtea::CLI.run(ARGV)

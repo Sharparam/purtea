@@ -3,10 +3,10 @@ PATH
   specs:
     purtea (0.0.1)
       dotenv (~> 2.7)
+      gli (~> 2.20)
       google-api-client (~> 0.53.0)
       graphql-client (~> 0.16.0)
       oauth2 (~> 1.4)
-      thor (~> 1.1)
       tomlrb (~> 2.0)
 
 GEM
@@ -40,6 +40,7 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.1.0)
     gems (1.2.0)
+    gli (2.20.0)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
       google-apis-generator (~> 0.1)

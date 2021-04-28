@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'thor'
+require 'gli'
 
 def format_percentage(percentage)
   if percentage.nil?
@@ -30,54 +30,67 @@ end
 
 module Purtea
   # Defines the CLI interface for Purtea.
-  class CLI < Thor
-    def self.exit_on_failure?
-      true
-    end
+  class CLI
+    extend GLI::App
 
-    class_option :verbose,
-                 type: :boolean,
-                 desc: 'Enable verbose output',
-                 default: false,
-                 aliases: %w[-v]
+    program_desc 'FF Logs TEA stats import tool'
+    program_long_desc <<~LONGDESC
+      This tool helps you import TEA stats from FF Logs and writing it to a
+      Google Sheet.
+    LONGDESC
+    version Purtea::VERSION
 
-    map '-V' => 'version'
-    map '--version' => 'version'
+    subcommand_option_handling :normal
+    arguments :strict
 
-    desc 'version', 'prints version information and exits'
-    def version
-      puts Purtea::VERSION
-    end
+    desc 'Be verbose'
+    switch %i[v verbose]
 
-    desc 'import CODE', 'imports the given FF Logs report to the Google Sheet'
-    def import(code)
-      config = Purtea::Config.load
-      fflogs_api = Purtea::FFLogs::API.new(
-        config['fflogs']['client_id'],
-        config['fflogs']['client_secret']
-      )
-      fights = fflogs_api.fights(code)
-
-      spreadsheet_data = fights.map { |f| parse_fight(f) }
-
-      sheet = Purtea::SheetApi.new(config['sheet']['id'])
-      sheet.append(config['sheet']['range'], spreadsheet_data)
-    end
-
-    desc 'log_test', 'Tests the logging system'
-    def log_test
-      l = Purtea.logger
-      if options[:verbose]
-        l.debug!
+    pre do |global_options, _options, _args|
+      if global_options[:verbose]
+        Purtea.logger.debug!
       else
-        l.info!
+        Purtea.logger.info!
       end
-      l.debug('This is a debug log')
-      l.info('This is an info log')
-      l.warn('This is a warn log')
-      l.error('This is an error log')
-      l.fatal('This is a fatal log')
-      l.unknown('This is an unknown log')
+    end
+
+    desc 'Import FF Logs report to Google Sheet'
+    long_desc <<~LONGDESC
+      report_code should be the code for a report containing TEA fights on
+      FF Logs.
+
+      The tool will read the fight stats and import it as a table into the
+      configured Google Sheet (at the configured range).
+    LONGDESC
+    arg :report_code
+    command :import do |c|
+      c.action do |_, _, args|
+        code = args.shift
+        config = Purtea::Config.load
+        fflogs_api = Purtea::FFLogs::API.new(
+          config['fflogs']['client_id'],
+          config['fflogs']['client_secret']
+        )
+        fights = fflogs_api.fights(code)
+
+        spreadsheet_data = fights.map { |f| parse_fight(f) }
+
+        sheet = Purtea::SheetApi.new(config['sheet']['id'])
+        sheet.append(config['sheet']['range'], spreadsheet_data)
+      end
+    end
+
+    desc 'Tests the logging system'
+    command :testlog do |c|
+      c.action do
+        l = Purtea.logger
+        l.debug('This is a debug log')
+        l.info('This is an info log')
+        l.warn('This is a warn log')
+        l.error('This is an error log')
+        l.fatal('This is a fatal log')
+        l.unknown('This is an unknown log')
+      end
     end
   end
 end
