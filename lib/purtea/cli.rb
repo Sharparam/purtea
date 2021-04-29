@@ -12,8 +12,8 @@ def format_percentage(percentage)
   end
 end
 
-def float_comp(a, b)
-  (a - b).abs < Float::EPSILON
+def float_comp(first, second)
+  (first - second).abs < Float::EPSILON
 end
 
 def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
