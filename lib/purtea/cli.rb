@@ -2,12 +2,38 @@
 
 require 'gli'
 
+TEA_ZONE_ID = 887
+
 def format_percentage(percentage)
   if percentage.nil?
     'N/A'
   else
     format('%.2f%%', percentage)
   end
+end
+
+def float_comp(a, b)
+  (a - b).abs < Float::EPSILON
+end
+
+def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  return '???' unless fight.zone_id == TEA_ZONE_ID
+
+  return 'N/A' if fight.boss_percentage.nil? || fight.fight_percentage.nil?
+
+  if fight.boss_percentage.zero? && fight.fight_percentage >= 80.0
+    return 'Living Liquid (LL)'
+  end
+
+  if fight.boss_percentage.positive? && fight.fight_percentage >= 75.0
+    return 'Living Liquid (LL)'
+  end
+
+  if fight.boss_percentage.zero? && float_comp(fight.fight_percentage, 75.0)
+    return 'Limit Cut (LC)'
+  end
+
+  '???'
 end
 
 def parse_fight(fight) # rubocop:disable Metrics/AbcSize
@@ -23,7 +49,7 @@ def parse_fight(fight) # rubocop:disable Metrics/AbcSize
     fight.start_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
     fight.end_at.strftime(Purtea::FFLogs::Fight::ISO_FORMAT),
     fight.duration.strftime('%H:%M:%S'),
-    '', # End phase
+    calc_end_phase(fight),
     fight.kill? ? 'Y' : 'N'
   ]
 end
