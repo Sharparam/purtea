@@ -44,6 +44,7 @@ module Purtea
                                                     token_store
       user_id = 'default'
       credentials = authorizer.get_credentials user_id
+
       if credentials.nil?
         url = authorizer.get_authorization_url base_url: OOB_URI
         code = prompt_code url
@@ -57,7 +58,7 @@ module Purtea
     def prompt_code(url)
       puts 'Open the following URL in the browser and enter the ' \
         "resulting code after authorization:\n#{url}"
-      gets
+      $stdin.gets
     end
   end
 end
