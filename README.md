@@ -59,9 +59,9 @@ Everyone interacting in the Purtea project's codebases, issue trackers, discussi
 [gem]: https://rubygems.org/gems/purtea
 [gem-version-badge]: https://img.shields.io/gem/v/purtea
 [workflow-main]: https://github.com/Sharparam/purtea/actions/workflows/main.yml
-[workflow-main-badge]: https://img.shields.io/github/workflow/status/Sharparam/purtea/main
+[workflow-main-badge]: https://github.com/Sharparam/purtea/actions/workflows/main.yml/badge.svg
 [workflow-main-master]: https://github.com/Sharparam/purtea/actions/workflows/main.yml?query=branch%3Amaster
-[workflow-main-master-badge]: https://img.shields.io/github/workflow/status/Sharparam/purtea/main/master
+[workflow-main-master-badge]: https://github.com/Sharparam/purtea/actions/workflows/main.yml/badge.svg?branch=master
 [coc]: https://github.com/Sharparam/purtea/blob/master/CODE_OF_CONDUCT.md
 [contrib]: https://github.com/Sharparam/purtea/blob/master/CONTRIBUTING.md
 
