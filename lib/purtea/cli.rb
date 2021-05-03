@@ -97,7 +97,7 @@ module Purtea
           config['fflogs']['client_id'],
           config['fflogs']['client_secret']
         )
-        fights = fflogs_api.fights(code)
+        fights = fflogs_api.fights(code).select { |f| f.zone_id == TEA_ZONE_ID }
 
         spreadsheet_data = fights.map { |f| parse_fight(f) }
 
