@@ -25,12 +25,16 @@ def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
     return 'Living Liquid (LL)'
   end
 
-  if fight.boss_percentage.positive? && fight.fight_percentage >= 75.0
+  if fight.boss_percentage.positive? && fight.fight_percentage > 75.0
     return 'Living Liquid (LL)'
   end
 
   if fight.boss_percentage.zero? && float_comp(fight.fight_percentage, 75.0)
     return 'Limit Cut (LC)'
+  end
+
+  if fight.boss_percentage.positive? && fight.fight_percentage <= 75.0
+    return 'Brute Justice / Cruise Chaser (BJ/CC)'
   end
 
   '???'
