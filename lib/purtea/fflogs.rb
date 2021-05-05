@@ -4,6 +4,7 @@ require 'graphql/client'
 require 'graphql/client/http'
 
 require 'purtea/fflogs/fight'
+require 'purtea/fflogs/api'
 
 module Purtea
   module FFLogs
@@ -60,5 +61,3 @@ module Purtea
     GRAPHQL
   end
 end
-
-require 'purtea/fflogs/api'
