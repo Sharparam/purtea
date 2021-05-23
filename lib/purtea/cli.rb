@@ -16,7 +16,7 @@ def float_comp(first, second)
   (first - second).abs < Float::EPSILON
 end
 
-def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
   return '???' unless fight.zone_id == TEA_ZONE_ID
 
   return 'N/A' if fight.boss_percentage.nil? || fight.fight_percentage.nil?
@@ -33,7 +33,8 @@ def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
     return 'Limit Cut (LC)'
   end
 
-  if fight.boss_percentage.positive? && fight.fight_percentage <= 75.0
+  if fight.fight_percentage >= 50.0 && fight.fight_percentage <= 75.0 &&
+     fight.boss_percentage >= 0.0
     return 'Brute Justice / Cruise Chaser (BJ/CC)'
   end
 
