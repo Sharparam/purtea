@@ -38,6 +38,8 @@ def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
     return 'Brute Justice / Cruise Chaser (BJ/CC)'
   end
 
+  return 'Alexander Prime (AP)' if fight.fight_percentage <= 50.0
+
   '???'
 end
 
