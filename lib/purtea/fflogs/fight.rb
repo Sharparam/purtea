@@ -4,7 +4,7 @@ module Purtea
   module FFLogs
     # Describes a fight entry in FF Logs.
     class Fight
-      ISO_FORMAT = '%Y-%m-%dT%H:%S:%M%:z'
+      ISO_FORMAT = '%Y-%m-%dT%H:%M:%S%:z'
 
       attr_reader :id, :encounter_id, :zone_id, :name, :zone_name, :difficulty,
                   :boss_percentage, :fight_percentage, :start_at, :end_at,
