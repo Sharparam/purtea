@@ -41,7 +41,7 @@ GEM
     faraday-net_http_persistent (1.1.0)
     ffi (1.15.1-java)
     gems (1.2.0)
-    gli (2.20.0)
+    gli (2.20.1)
     google-api-client (0.53.0)
       google-apis-core (~> 0.1)
       google-apis-generator (~> 0.1)
