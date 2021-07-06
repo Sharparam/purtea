@@ -126,7 +126,7 @@ GEM
     racc (1.5.2-java)
     rack (2.2.3)
     rainbow (3.0.0)
-    rake (13.0.3)
+    rake (13.0.4)
     regexp_parser (2.1.1)
     representable (3.1.1)
       declarative (< 0.1.0)
