@@ -35,7 +35,9 @@ module Purtea
         base = ENV['XDG_CONFIG_HOME'] || File.join(Dir.home, '.config')
         File.join(base, 'purtea').tap do |path|
           if create && !Dir.exist?(path)
-            Purtea.logger.debug "Config directory doesn't exist, creating #{path}"
+            Purtea.logger.debug(
+              "Config directory doesn't exist, creating #{path}"
+            )
             FileUtils.mkpath(path)
           end
         end
