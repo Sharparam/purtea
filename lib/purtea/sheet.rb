@@ -6,6 +6,8 @@ require 'googleauth/stores/file_token_store'
 
 require 'fileutils'
 
+LOG = Purtea.logger
+
 module Purtea
   # Interacts with the Google Sheets API.
   class SheetApi
@@ -45,7 +47,8 @@ module Purtea
       user_id = 'default'
       credentials = authorizer.get_credentials user_id
 
-      if credentials.nil?
+      if credentials.nil? || credentials.expired?
+        LOG.info "Google credentials don't exist or expired, acquiring new ones"
         url = authorizer.get_authorization_url base_url: OOB_URI
         code = prompt_code url
         credentials = authorizer.get_and_store_credentials_from_code(
