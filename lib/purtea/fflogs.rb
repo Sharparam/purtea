@@ -10,7 +10,7 @@ module Purtea
   module FFLogs
     BASE_URL = 'https://www.fflogs.com'
     API_URL = "#{BASE_URL}/api/v2/client"
-    SCHEMA_FILE = 'fflogs_schema.json'
+    SCHEMA_FILE = File.expand_path('../../fflogs_schema.json', __dir__)
 
     HTTP = GraphQL::Client::HTTP.new(API_URL) do
       def headers(context)

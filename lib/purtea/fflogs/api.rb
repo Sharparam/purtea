@@ -5,7 +5,10 @@ require 'time'
 
 module Purtea
   module FFLogs
-    TOKEN_FILE = 'fflogs_token.json'
+    TOKEN_FILE = Purtea::Config.resolve_file(
+      'fflogs_token.json',
+      create_dir: true
+    )
     EXPIRATION_THRESHOLD = 30
 
     # Contains methods to interact with the FF Logs API.

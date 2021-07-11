@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'dotenv/load'
+require 'fileutils'
 require 'tomlrb'
 
 module Purtea
@@ -12,6 +13,7 @@ module Purtea
 
     class << self
       def load(path = DEFAULT_CONFIG_PATH, env_prefix: DEFAULT_ENV_PREFIX)
+        path = resolve_file path, create_dir: true
         config = if File.exist? path
                    Tomlrb.load_file path
                  else
@@ -27,6 +29,21 @@ module Purtea
         end
 
         config
+      end
+
+      def resolve_directory(create: false)
+        base = ENV['XDG_CONFIG_HOME'] || File.join(Dir.home, '.config')
+        File.join(base, 'purtea').tap do |path|
+          if create && !Dir.exist?(path)
+            Purtea.logger.debug "Config directory doesn't exist, creating #{path}"
+            FileUtils.mkpath(path)
+          end
+        end
+      end
+
+      def resolve_file(file, create_dir: false)
+        directory = resolve_directory create: create_dir
+        File.join directory, file
       end
 
       private

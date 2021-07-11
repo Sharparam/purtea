@@ -4,8 +4,8 @@
 module Purtea; end
 
 require 'purtea/version'
-require 'purtea/config'
 require 'purtea/logging'
+require 'purtea/config'
 
 require 'purtea/fflogs'
 require 'purtea/sheet'
