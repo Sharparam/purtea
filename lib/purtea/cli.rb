@@ -8,7 +8,7 @@ TEA_ZONE_ID = 887
 VALID_ZONE_IDS = [
   UWU_ZONE_ID,
   TEA_ZONE_ID
-]
+].freeze
 
 def format_percentage(percentage)
   if percentage.nil?
