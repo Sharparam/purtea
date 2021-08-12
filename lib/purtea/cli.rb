@@ -2,7 +2,13 @@
 
 require 'gli'
 
+UWU_ZONE_ID = 777
 TEA_ZONE_ID = 887
+
+VALID_ZONE_IDS = [
+  UWU_ZONE_ID,
+  TEA_ZONE_ID
+]
 
 def format_percentage(percentage)
   if percentage.nil?
@@ -16,11 +22,18 @@ def float_comp(first, second)
   (first - second).abs < Float::EPSILON
 end
 
-def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
-  return '???' unless fight.zone_id == TEA_ZONE_ID
+def calc_uwu_phase(fight)
+  return 'Garuda' if fight.duration.to_i < 90 || fight.fight_percentage > 85.0
 
-  return 'N/A' if fight.boss_percentage.nil? || fight.fight_percentage.nil?
+  if fight.fight_percentage > 68.0 ||
+     (fight.fight_percentage > 65.0 && fight.boss_percentage < 10.0)
+    return 'Ifrit'
+  end
 
+  'Titan???'
+end
+
+def calc_tea_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
   if fight.boss_percentage.zero? && fight.fight_percentage >= 80.0
     return 'Living Liquid (LL)'
   end
@@ -43,6 +56,16 @@ def calc_end_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
   end
 
   'Perfect Alexander (PA)'
+end
+
+def calc_end_phase(fight)
+  return 'N/A' if fight.boss_percentage.nil? || fight.fight_percentage.nil?
+
+  return calc_uwu_phase(fight) if fight.zone_id == UWU_ZONE_ID
+
+  return calc_tea_phase(fight) if fight.zone_id == TEA_ZONE_ID
+
+  '???'
 end
 
 def parse_fight(fight) # rubocop:disable Metrics/AbcSize
@@ -106,7 +129,9 @@ module Purtea
           config['fflogs']['client_id'],
           config['fflogs']['client_secret']
         )
-        fights = fflogs_api.fights(code).select { |f| f.zone_id == TEA_ZONE_ID }
+        fights = fflogs_api.fights(code).select do |f|
+          VALID_ZONE_IDS.include? f.zone_id
+        end
 
         spreadsheet_data = fights.map { |f| parse_fight(f) }
 
