@@ -22,7 +22,7 @@ def float_comp(first, second)
   (first - second).abs < Float::EPSILON
 end
 
-def calc_uwu_phase(fight)
+def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   return 'Garuda' if fight.duration.to_i < 90 || fight.fight_percentage > 85.0
 
   if fight.fight_percentage > 68.0 ||
@@ -30,7 +30,13 @@ def calc_uwu_phase(fight)
     return 'Ifrit'
   end
 
-  'Titan???'
+  return 'Titan' if fight.fight_percentage > 50.0
+
+  if float_comp(fight.fight_percentage, 50.0) && fight.boss_percentage.zero?
+    return 'LBs???'
+  end
+
+  'Predation???'
 end
 
 def calc_tea_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
