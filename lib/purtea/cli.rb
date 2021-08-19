@@ -32,13 +32,16 @@ def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
 
   return 'Titan' if fight.fight_percentage > 50.0
 
-  if float_comp(fight.fight_percentage, 50.0) && fight.boss_percentage.zero?
-    return 'LBs???'
+  if float_comp(fight.fight_percentage, 50.0) &&
+     (fight.boss_percentage.zero? || float_comp(fight.boss_percentage, 100.0))
+    return 'LBs'
   end
 
   return 'Predation???' if fight.fight_percentage > 37.5
 
-  'Annihilation???'
+  return 'Annihilation???' if fight.boss_percentage >= 50.0
+
+  'Suppression???'
 end
 
 def calc_tea_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
