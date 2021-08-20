@@ -37,7 +37,7 @@ def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
     return 'LBs'
   end
 
-  return 'Predation???' if fight.fight_percentage > 37.5
+  return 'Predation???' if fight.fight_percentage > 39.5
 
   return 'Annihilation???' if fight.boss_percentage >= 50.0
 
