@@ -49,6 +49,8 @@ module Purtea
               startTime
               endTime
               kill
+              lastPhase
+              lastPhaseIsIntermission
             }
           }
         }

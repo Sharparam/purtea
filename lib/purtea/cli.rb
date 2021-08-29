@@ -10,6 +10,22 @@ VALID_ZONE_IDS = [
   TEA_ZONE_ID
 ].freeze
 
+TEA_PHASES = {
+  1 => 'Living Liquid (LL)',
+  2 => 'Limit Cut (LC)',
+  3 => 'Brute Justice / Cruise Chaser (BJ/CC)',
+  4 => 'Alexander Prime (AP)', # Temporal Stasis intermission phase on FFLogs
+  5 => 'Alexander Prime (AP)',
+  6 => 'Perfect Alexander (PA)'
+}.freeze
+
+UWU_PHASES = {
+  1 => 'Garuda',
+  2 => 'Ifrit',
+  3 => 'Titan',
+  4 => 'LBs' # FFLogs calls this "Magitek Bits"
+}.freeze
+
 def format_percentage(percentage)
   if percentage.nil?
     'N/A'
@@ -22,15 +38,13 @@ def float_comp(first, second)
   (first - second).abs < Float::EPSILON
 end
 
-def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  return 'Garuda' if fight.duration.to_i < 90 || fight.fight_percentage > 85.0
+def calc_uwu_phase(fight)
+  return UWU_PHASES[fight.last_phase_id] if UWU_PHASES.key? fight.last_phase_id
 
-  if fight.fight_percentage > 68.0 ||
-     (fight.fight_percentage > 65.0 && fight.boss_percentage < 10.0)
-    return 'Ifrit'
-  end
-
-  return 'Titan' if fight.fight_percentage > 50.0
+  # If we reach here, we have gotten into what FFLogs collectively refers to
+  # as the "The Ultima Weapon" phase. FFLogs doesn't divide this up into the
+  # individual sub-phases of Predation, Annihilation, et.c. so we have to do
+  # our own logic.
 
   if float_comp(fight.fight_percentage, 50.0) &&
      (fight.boss_percentage.zero? || float_comp(fight.boss_percentage, 100.0))
@@ -44,29 +58,8 @@ def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticC
   'Suppression???'
 end
 
-def calc_tea_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
-  if fight.boss_percentage.zero? && fight.fight_percentage >= 80.0
-    return 'Living Liquid (LL)'
-  end
-
-  if fight.boss_percentage.positive? && fight.fight_percentage > 75.0
-    return 'Living Liquid (LL)'
-  end
-
-  if fight.boss_percentage.zero? && float_comp(fight.fight_percentage, 75.0)
-    return 'Limit Cut (LC)'
-  end
-
-  if fight.fight_percentage >= 50.0 && fight.fight_percentage <= 75.0 &&
-     fight.boss_percentage >= 0.0
-    return 'Brute Justice / Cruise Chaser (BJ/CC)'
-  end
-
-  if fight.fight_percentage <= 50.0 && fight.fight_percentage >= 30.0
-    return 'Alexander Prime (AP)'
-  end
-
-  'Perfect Alexander (PA)'
+def calc_tea_phase(fight)
+  TEA_PHASES[fight.last_phase_id] || '???'
 end
 
 def calc_end_phase(fight)

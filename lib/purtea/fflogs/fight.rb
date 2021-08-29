@@ -8,7 +8,7 @@ module Purtea
 
       attr_reader :id, :encounter_id, :zone_id, :name, :zone_name, :difficulty,
                   :boss_percentage, :fight_percentage, :start_at, :end_at,
-                  :duration
+                  :duration, :last_phase_id
 
       # rubocop:disable Metrics/AbcSize
       def initialize(data, report_start_ms)
@@ -24,6 +24,7 @@ module Purtea
         @end_at = parse_fight_timestamp report_start_ms, data.end_time
         @kill = data.kill
         @duration = parse_duration @start_at, @end_at
+        @last_phase_id = data.last_phase
       end
       # rubocop:enable Metrics/AbcSize
 
