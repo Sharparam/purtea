@@ -38,7 +38,7 @@ def float_comp(first, second)
   (first - second).abs < Float::EPSILON
 end
 
-def calc_uwu_phase(fight)
+def calc_uwu_phase(fight) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   return UWU_PHASES[fight.last_phase_id] if UWU_PHASES.key? fight.last_phase_id
 
   # If we reach here, we have gotten into what FFLogs collectively refers to
@@ -55,7 +55,11 @@ def calc_uwu_phase(fight)
 
   return 'Annihilation???' if fight.boss_percentage >= 49.95
 
-  'Suppression???'
+  return 'Suppression???' if fight.fight_percentage >= 19.50
+
+  return 'Aetheric Boom???' if fight.fight_percentage >= 19
+
+  'Primals???'
 end
 
 def calc_tea_phase(fight)
