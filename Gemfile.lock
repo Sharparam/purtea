@@ -197,7 +197,8 @@ GEM
     uber (0.1.0)
     unicode-display_width (2.1.0)
     webrick (1.7.0)
-    yard (0.9.26)
+    yard (0.9.27)
+      webrick (~> 1.7.0)
     zeitwerk (2.4.2)
 
 PLATFORMS
