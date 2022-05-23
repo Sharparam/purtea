@@ -94,7 +94,7 @@ GEM
     jaro_winkler (1.5.4)
     jaro_winkler (1.5.4-java)
     jwt (2.3.0)
-    kramdown (2.3.1)
+    kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
@@ -185,7 +185,7 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    solargraph (0.44.3)
+    solargraph (0.45.0)
       backport (~> 1.2)
       benchmark
       bundler (>= 1.17.2)
@@ -232,7 +232,7 @@ DEPENDENCIES
   rubocop (~> 1.13)
   rubocop-rake (~> 0.6.0)
   rubocop-rspec (~> 2.2)
-  solargraph (~> 0.44.0)
+  solargraph (~> 0.45.0)
   yard (~> 0.9.26)
 
 BUNDLED WITH
