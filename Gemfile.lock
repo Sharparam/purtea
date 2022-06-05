@@ -204,7 +204,7 @@ GEM
       ffi
     thor (1.2.1)
     tilt (2.0.10)
-    tomlrb (2.0.2)
+    tomlrb (2.0.3)
     trailblazer-option (0.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
