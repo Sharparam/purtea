@@ -28,7 +28,7 @@ GEM
     concurrent-ruby (1.1.10)
     declarative (0.0.20)
     diff-lcs (1.5.0)
-    dotenv (2.7.6)
+    dotenv (2.8.0)
     e2mmap (0.1.0)
     faraday (1.10.0)
       faraday-em_http (~> 1.0)
